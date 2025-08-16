@@ -23,15 +23,14 @@ async def process_streaming_response():
 
     # 各チャンクを処理
     async for chunk in agent_stream:
-        if "event" in chunk:
-            event = chunk["event"]
-            if "contentBlockDelta" in event:
-                delta = event["contentBlockDelta"]["delta"]
-                if "text" in delta:
-                    print(delta["text"], end="", flush=True)
-            # delta = event["contentBlockDelta"]["delta"]
-            # if "text" in delta:
-            #     print(delta["text"], end="", flush=True)
+        if "data" in chunk:
+            print(chunk["data"], end="", flush=True)
+        # if "event" in chunk:
+        #     event = chunk["event"]
+        #     if "contentBlockDelta" in event:
+        #         delta = event["contentBlockDelta"]["delta"]
+        #         if "text" in delta:
+        #             print(delta["text"], end="", flush=True)
 
 
 # 非同期関数を実行
