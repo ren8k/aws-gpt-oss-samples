@@ -37,8 +37,9 @@ def main():
     for chunk in response:
         content = chunk.choices[0].delta.content
         if content and TAG_OPEN in content:
-            print(content.split(TAG_OPEN)[1].split(TAG_CLOSE)[0])
-        if content and TAG_OPEN not in content:
+            # print(content.split(TAG_OPEN)[1].split(TAG_CLOSE)[0])
+            print(content)
+        elif content and TAG_OPEN not in content:
             print(content)
 
 
