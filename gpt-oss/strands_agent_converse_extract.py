@@ -24,6 +24,7 @@ async def process_streaming_response():
     # 各チャンクを処理
     async for chunk in agent_stream:
         if "data" in chunk:
+            # いい感じにreasoningTextとdataでレスポンスを分けてくれてる．
             print(chunk["data"], end="", flush=True)
         # if "event" in chunk:
         #     event = chunk["event"]
