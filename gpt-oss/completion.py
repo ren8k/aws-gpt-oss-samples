@@ -1,5 +1,4 @@
 import os
-import re
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -28,11 +27,13 @@ def main():
         max_completion_tokens=1024,
         temperature=0.7,
         top_p=0.9,
+        reasoning_effort="high",
     )
 
     content = response.choices[0].message.content
-    text = re.sub(r"<reasoning>.*</reasoning>", "", content)
-    print(text)
+    # text = re.sub(r"<reasoning>.*</reasoning>", "", content)
+    # print(text)
+    print(content)
 
 
 if __name__ == "__main__":

@@ -28,10 +28,11 @@ def main():
     response = client.chat.completions.create(
         model=model_id,
         messages=messages,
-        max_completion_tokens=1024,
+        max_completion_tokens=10240,
         temperature=0.7,
         top_p=0.9,
         stream=True,
+        reasoning_effort="low",
     )
 
     for chunk in response:
@@ -40,7 +41,7 @@ def main():
             # print(content.split(TAG_OPEN)[1].split(TAG_CLOSE)[0])
             print(content)
         elif content and TAG_OPEN not in content:
-            print(content)
+            print(content, end="", flush=True)
 
 
 if __name__ == "__main__":
