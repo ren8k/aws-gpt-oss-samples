@@ -13,7 +13,7 @@ def main():
         }
     ]
     inference_config = {"maxTokens": 1024, "temperature": 0.7, "topP": 0.9}
-    additional_confg = {"reasoning_effort": "high"}
+    additional_confg = {"reasoning_effort": "low"}
 
     response = client.converse_stream(
         modelId=model_id,
@@ -27,7 +27,7 @@ def main():
         if "contentBlockDelta" in chunk:
             delta = chunk["contentBlockDelta"]["delta"]
             if "text" in delta:
-                print(delta["text"])
+                print(delta["text"], end="", flush=True)
 
 
 if __name__ == "__main__":
