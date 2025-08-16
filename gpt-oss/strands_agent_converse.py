@@ -3,7 +3,7 @@ from strands.models import BedrockModel
 
 model = BedrockModel(
     model_id="openai.gpt-oss-20b-1:0",
-    streaming=True,
+    # streaming=True,
     params={"temperature": 0.7},
     additional_request_fields={"reasoning_effort": "high"},
 )
