@@ -21,7 +21,6 @@ def main() -> None:
             "content": "3.11と3.9はどちらが大きいですか？",
         },
     ]
-
     response = client.chat.completions.create(
         model=MODEL_ID,
         messages=messages,
