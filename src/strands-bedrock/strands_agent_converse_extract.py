@@ -3,36 +3,27 @@ import asyncio
 from strands import Agent
 from strands.models import BedrockModel
 
-model = BedrockModel(
-    model_id="openai.gpt-oss-20b-1:0",
-    # streaming=True,
-    params={"temperature": 0.7},
-    additional_request_fields={"reasoning_effort": "low"},
-)
-
-agent = Agent(
-    model=model,
-    system_prompt="質問に対して日本語で回答してください。",
-    callback_handler=None,
-)
+MODEL_ID = "openai.gpt-oss-20b-1:0"
 
 
-async def process_streaming_response():
-    # stream_async()を使ってチャンクを取得
-    agent_stream = agent.stream_async("3.11と3.9はどちらが大きいですか？")
+async def main() -> None:
+    model = BedrockModel(
+        model_id=MODEL_ID,
+        params={"temperature": 1.0, "top_p": 1.0},
+        additional_request_fields={"reasoning_effort": "medium"},
+    )
+    agent = Agent(
+        model=model,
+        system_prompt="質問に対して日本語で回答してください。",
+        callback_handler=None,
+    )
+    response = agent.stream_async("3.11と3.9はどちらが大きいですか？")
 
-    # 各チャンクを処理
-    async for chunk in agent_stream:
+    async for chunk in response:
         if "data" in chunk:
-            # いい感じにreasoningTextとdataでレスポンスを分けてくれてる．
+            # Strands splits the response into reasoningText and data.
             print(chunk["data"], end="", flush=True)
-        # if "event" in chunk:
-        #     event = chunk["event"]
-        #     if "contentBlockDelta" in event:
-        #         delta = event["contentBlockDelta"]["delta"]
-        #         if "text" in delta:
-        #             print(delta["text"], end="", flush=True)
 
 
-# 非同期関数を実行
-asyncio.run(process_streaming_response())
+if __name__ == "__main__":
+    asyncio.run(main())
