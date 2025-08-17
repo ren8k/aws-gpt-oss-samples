@@ -14,7 +14,6 @@ def main() -> None:
     ]
     inference_config = {"maxTokens": 1024, "temperature": 1.0, "topP": 1.0}
     additional_confg = {"reasoning_effort": "medium"}
-
     response = client.converse_stream(
         modelId=MODEL_ID,
         system=system,
