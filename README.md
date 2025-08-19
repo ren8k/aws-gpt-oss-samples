@@ -70,9 +70,15 @@ src/
   - `top_p`: 1.0
   - `reasoning_effort`: "medium"
 
+## Tips
+
+Strands Agents の `strands.models.OpenAIModel` の内部実装では， OpenAI Completions API が利用されています．ですので，`src/bedrock-completion/completion_stream.py` と `src/strands-openai/strands_agent_completion_extract.py` のレスポンスの形式はほぼ同じです．
+
 ## 既知の問題
 
-Converse API 実行時，稀に text フィールドに `<reasoning>` タグが混ざることがあります．これは upstream のバグと思われますが，現時点では `<reasoning>` タグを除去する処理を追加実装する必要があるかもしれません．
+Converse API 実行時，response の text フィールドにおいて，Reasoning word と最終的な回答が混在することがあります．具体的には，text フィールド中に `<reasoning>` タグを含む回答が混ざることがあります．これは API 側のバグと思われますが，現時点（2025/08/19）では `<reasoning>` タグを除去する処理を追加実装する必要があるかもしれません．
+
+一方，Completions API 実行時，response の data フィールドにおいて，Reasoning word は全て `<reasoning>` で確実に囲まれます．現時点（2025/08/19）ではこちらの方が確実かもしれません．
 
 ## 参考リンク
 
